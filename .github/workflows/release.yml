@@ -30,11 +30,9 @@ jobs:
           # Prepare code to upload
           npm install
           npm run all
+          
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .
-          git commit -m "Version $VERSION"
-          git push origin main
 
           # Create or update a Git tag with the version number
           git tag -f -a "$VERSION" -m "Version $VERSION"
