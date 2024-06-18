@@ -19,7 +19,3 @@ runs:
         VERSION=${{ inputs.version }}
         CHECK_LATEST=${{ inputs.check-latest }}
         curl https://cli.nullplatform.com/install.sh | bash
-    - name: Set environment variables
-      shell: bash
-      run: |
-        echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B $GITHUB_SHA)" >> $GITHUB_ENV
