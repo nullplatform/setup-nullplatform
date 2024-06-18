@@ -27,10 +27,6 @@ jobs:
           VERSION="v$VERSION_NUMBER"
           MAJOR_VERSION="v$MAJOR_VERSION_NUMBER"
 
-          # Prepare code to upload
-          npm install
-          npm run all
-
           git config user.name github-actions
           git config user.email github-actions@github.com
 

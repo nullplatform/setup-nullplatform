@@ -1,19 +1,25 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Setup nullplatform cli environment'
+description: 'Setup nullplatform cli environment by downloading and adding it to the PATH'
+author: 'nullplatform'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
-    required: true
-    default: '1000'
-
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+  version:
+    description: 'Version Spec of the version to use. Examples: 1.x, 1.2.0, >=1.2.0'
+    default: 'latest'
+  check-latest:
+    description: 'Set this option if you want the action to check for the latest available version that satisfies the version spec.'
+    default: 'false'
 
 runs:
-  using: node20
-  main: dist/index.js
+  using: composite
+  steps:
+    - name: Install nullplatform cli
+      shell: bash
+      run: |
+        VERSION=${{ inputs.version }}
+        CHECK_LATEST=${{ inputs.check-latest }}
+        curl https://cli.nullplatform.com/install.sh | bash
+    - name: Set environment variables
+      shell: bash
+      run: |
+        echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B $GITHUB_SHA)" >> $GITHUB_ENV
